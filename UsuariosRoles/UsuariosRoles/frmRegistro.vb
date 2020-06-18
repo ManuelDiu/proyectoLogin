@@ -25,6 +25,9 @@ Public Class frmRegistro
             'VERIFICAR PASSWORD
         ElseIf Not String.Equals(tbxPass.Text, tbxConfirmPass.Text) Then
             MsgBox("Las contraseñas no coinciden. Inténtelo de nuevo.")
+
+        ElseIf Not (tbxNombre.Text <> "" And tbxPass.Text <> "" And tbxConfirmPass.Text <> "") Then
+            MsgBox("Rellene los campos vacíos por favor.")
         Else
             Try
                 cmd = conexion.CreateCommand

@@ -22,14 +22,19 @@ Public Class frmMain
     Private Sub frmMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Label1.Text = "¡Bienvenido, " & ModuloVariables.nombre & "!"
         Try
-            conexion.Open()
-            Dim consulta As String
-            consulta = "SELECT `idUsuario`, `nombre`, `activo` FROM `usuarios`"
-            adaptador = New MySqlDataAdapter(consulta, conexion)
-            ds = New DataSet
-            adaptador.Fill(ds, "usuarios")
-            grdUsers.DataSource = ds.Tables(0)
-
+            If (frmLogin.esAdmin = True) Then
+                conexion.Open()
+                Dim consulta As String
+                consulta = "SELECT `idUsuario`, `nombre`, `activo` FROM `usuarios`"
+                adaptador = New MySqlDataAdapter(consulta, conexion)
+                ds = New DataSet
+                adaptador.Fill(ds, "usuarios")
+                grdUsers.DataSource = ds.Tables(0)
+            Else
+                btnHabilitar.Hide()
+                btnInhabilitar.Hide()
+                btnReset.Hide()
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
